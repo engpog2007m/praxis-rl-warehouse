@@ -1,0 +1,6 @@
+Metric,PPO_median,PPO_IQR,DWB_median,DWB_IQR,W_statistic,p_value,Significant,Effect_r,Effect_size,PPO_superior
+reward,40.5765,202.5862,11.9325,102.8439,10012708.0,0.0,Yes,-0.2516,Small,Yes
+cycle_time,100.0,0.0,100.0,0.0,7206000.0,0.0,Yes,0.0992,Negligible,No
+throughput,0.0,0.0,0.0,0.0,8230000.0,0.0,Yes,-0.0288,Negligible,No
+efficiency,0.4699,2.0259,0.1194,1.0285,10038275.0,0.0,Yes,-0.2548,Small,Yes
+violation_rate,0.0,0.0,0.0,0.0,8000000.0,1.0,No,0.0,Negligible,No

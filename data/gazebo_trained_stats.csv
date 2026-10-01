@@ -1,0 +1,6 @@
+Metric,PPO_median,DWB_median,p_value,Effect_r,Effect_size,PPO_superior
+reward,-63.6654,-37.2572,0.005403,-0.1137,Small,No
+efficiency,-0.5377,-0.3105,0.008022,-0.1083,Small,No
+throughput,0.0,0.0,0.0,-0.11,Small,No
+cycle_time,120.0,120.0,0.0,0.2055,Small,No
+violation_rate,0.0,0.0,0.006244,-0.0989,Negligible,No

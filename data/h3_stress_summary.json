@@ -1,0 +1,35 @@
+{
+  "test": "H3_stress_tiers",
+  "tiers": {
+    "low_load": {
+      "gap_pp": -3.0,
+      "p": 0.9537883750133964,
+      "r": 0.03,
+      "guided": 0.8783,
+      "unguided": 0.9083
+    },
+    "medium": {
+      "gap_pp": 0.5,
+      "p": 0.4284435390522262,
+      "r": -0.005,
+      "guided": 0.6433,
+      "unguided": 0.6383
+    },
+    "high": {
+      "gap_pp": -0.33,
+      "p": 0.5461063590765206,
+      "r": 0.0033,
+      "guided": 0.4617,
+      "unguided": 0.465
+    },
+    "congested": {
+      "gap_pp": 0.83,
+      "p": 0.38219113399043436,
+      "r": -0.0083,
+      "guided": 0.3683,
+      "unguided": 0.36
+    }
+  },
+  "criterion_met": false,
+  "n_per_system_per_tier": 600
+}

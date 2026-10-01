@@ -1,0 +1,11 @@
+{
+  "ppo_violation_rate": 0.999959,
+  "dwb_violation_rate": 0.997515,
+  "reduction_pct": -0.25,
+  "ci_low": -0.31,
+  "ci_high": -0.19,
+  "p_value": 2.0211580887461907e-19,
+  "effect_r": -0.1927,
+  "n_fragile_episodes": 800,
+  "h1_threshold_met": false
+}

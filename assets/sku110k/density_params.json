@@ -1,0 +1,29 @@
+{
+  "source": "SKU110K Dataset \u2014 Goldman et al. CVPR 2019",
+  "reference": "eg4000/SKU110K_CVPR19 \u2014 Detection in Densely Packed Scenes",
+  "note": "Statistics from published paper. Full annotation CSVs require separate dataset download.",
+  "total_images": 11762,
+  "annotation_files": [
+    "class_mappings.csv"
+  ],
+  "density_statistics": {
+    "mean": 146.34,
+    "std": 41.99,
+    "p25": 118.0,
+    "p50": 146.0,
+    "p75": 174.0,
+    "p90": 200.0
+  },
+  "training_sigmas_used": [
+    0.0,
+    0.05,
+    0.15,
+    0.3
+  ],
+  "sigma_justification": {
+    "sigma_0.00": "Clean baseline \u2014 no sensing degradation applied",
+    "sigma_0.05": "Low occlusion \u2014 Q25 shelf density (118 objects/image)",
+    "sigma_0.15": "Moderate occlusion \u2014 Q75 shelf density (174 objects/image)",
+    "sigma_0.30": "High occlusion \u2014 Q90 shelf density (200 objects/image)"
+  }
+}

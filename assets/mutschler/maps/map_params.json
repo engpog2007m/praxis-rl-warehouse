@@ -1,0 +1,17 @@
+{
+  "source": "Mutschler Lab Warehouse Dataset (Fraunhofer IIS / TU Nuremberg)",
+  "reference": "L\u00f6ffler et al. 2018, IPIN Conference \u2014 Evaluation Criteria for Inside-Out Indoor Positioning",
+  "warehouse_area_m2": 1317.6,
+  "x_min": 0.0,
+  "x_max": 36.6,
+  "y_min": 0.0,
+  "y_max": 36.0,
+  "width_m": 36.6,
+  "height_m": 36.0,
+  "resolution_m_per_px": 0.05,
+  "trajectory_points": 0,
+  "grid_px": [
+    732,
+    720
+  ]
+}

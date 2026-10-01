@@ -1,0 +1,9 @@
+# Recorded by tools/collect_source.sh on 2026-10-01T06:26:55Z
+os=Ubuntu 24.04.4 LTS
+kernel=7.0.0-31-generic
+python=Python 3.12.3
+gazebo=Gazebo Sim, version 8.11.0
+ros_distro=jazzy
+gpu=NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
+
+unknown

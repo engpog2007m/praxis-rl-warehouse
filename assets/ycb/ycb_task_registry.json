@@ -1,0 +1,96 @@
+{
+  "source": "YCB Object Benchmark (Yale-CMU-Berkeley)",
+  "reference": "Calli et al. 2015, IEEE Robotics & Automation Magazine",
+  "task_registry": {
+    "1": {
+      "name": "standard_box",
+      "is_heavy": false,
+      "is_fragile": false,
+      "weight_kg": 0.514,
+      "ycb_source": "004_sugar_box",
+      "friction_mu": 0.8
+    },
+    "2": {
+      "name": "lightweight_pkg",
+      "is_heavy": false,
+      "is_fragile": false,
+      "weight_kg": 0.187,
+      "ycb_source": "008_pudding_box",
+      "friction_mu": 0.7
+    },
+    "3": {
+      "name": "heavy_pallet",
+      "is_heavy": true,
+      "is_fragile": false,
+      "weight_kg": 45.0,
+      "ycb_source": "industrial_scale_YCB",
+      "friction_mu": 0.6
+    },
+    "4": {
+      "name": "fragile_glassware",
+      "is_heavy": false,
+      "is_fragile": true,
+      "weight_kg": 0.098,
+      "ycb_source": "065-a_cups",
+      "friction_mu": 0.5
+    },
+    "1001": {
+      "name": "heavy_fragile",
+      "is_heavy": true,
+      "is_fragile": true,
+      "weight_kg": 30.0,
+      "ycb_source": "combined_profile",
+      "friction_mu": 0.55
+    }
+  },
+  "ycb_objects": {
+    "004_sugar_box": {
+      "task_id": 1,
+      "mass_kg": 0.514,
+      "is_heavy": false,
+      "is_fragile": false,
+      "friction_mu": 0.8,
+      "size_xyz": [
+        0.038,
+        0.067,
+        0.175
+      ]
+    },
+    "008_pudding_box": {
+      "task_id": 2,
+      "mass_kg": 0.187,
+      "is_heavy": false,
+      "is_fragile": false,
+      "friction_mu": 0.7,
+      "size_xyz": [
+        0.086,
+        0.089,
+        0.028
+      ]
+    },
+    "010_potted_meat_can": {
+      "task_id": 4,
+      "mass_kg": 0.37,
+      "is_heavy": false,
+      "is_fragile": true,
+      "friction_mu": 0.6,
+      "size_xyz": [
+        0.052,
+        0.076,
+        0.038
+      ]
+    },
+    "065-a_cups": {
+      "task_id": 4,
+      "mass_kg": 0.098,
+      "is_heavy": false,
+      "is_fragile": true,
+      "friction_mu": 0.5,
+      "size_xyz": [
+        0.071,
+        0.071,
+        0.083
+      ]
+    }
+  }
+}

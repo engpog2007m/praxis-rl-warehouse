@@ -1,0 +1,268 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="praxis_warehouse">
+    <physics name="1ms" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-contact-system"
+            name="gz::sim::systems::Contact"/>
+    <plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Mutschler Lab floor 36.6m x 36.0m -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane>
+            <normal>0 0 1</normal><size>36.6 36.0</size>
+          </plane></geometry>
+          <surface><friction><ode><mu>0.8</mu><mu2>0.8</mu2></ode></friction></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><plane>
+            <normal>0 0 1</normal><size>36.6 36.0</size>
+          </plane></geometry>
+          <material><ambient>0.6 0.6 0.6 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Walls -->
+    <model name="north_wall"><static>true</static><pose>18.3 36.15 1.5 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>36.6 0.3 3.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>36.6 0.3 3.0</size></box></geometry><material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link></model>
+    <model name="south_wall"><static>true</static><pose>18.3 -0.15 1.5 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>36.6 0.3 3.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>36.6 0.3 3.0</size></box></geometry><material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link></model>
+    <model name="east_wall"><static>true</static><pose>36.75 18.0 1.5 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.3 36.0 3.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.3 36.0 3.0</size></box></geometry><material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link></model>
+    <model name="west_wall"><static>true</static><pose>-0.15 18.0 1.5 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>0.3 36.0 3.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>0.3 36.0 3.0</size></box></geometry><material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link></model>
+
+    <!-- Shelves -->
+    <model name="shelf_A1"><static>true</static><pose>8.0 7.0 1.0 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>6.0 1.2 2.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>6.0 1.2 2.0</size></box></geometry><material><ambient>0.3 0.5 0.8 1</ambient></material></visual></link></model>
+    <model name="shelf_A2"><static>true</static><pose>8.0 12.0 1.0 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>6.0 1.2 2.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>6.0 1.2 2.0</size></box></geometry><material><ambient>0.3 0.5 0.8 1</ambient></material></visual></link></model>
+    <model name="shelf_B1"><static>true</static><pose>18.0 7.0 1.0 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>6.0 1.2 2.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>6.0 1.2 2.0</size></box></geometry><material><ambient>0.3 0.5 0.8 1</ambient></material></visual></link></model>
+    <model name="shelf_B2"><static>true</static><pose>18.0 12.0 1.0 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>6.0 1.2 2.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>6.0 1.2 2.0</size></box></geometry><material><ambient>0.3 0.5 0.8 1</ambient></material></visual></link></model>
+    <model name="shelf_C1"><static>true</static><pose>28.0 7.0 1.0 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>6.0 1.2 2.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>6.0 1.2 2.0</size></box></geometry><material><ambient>0.3 0.5 0.8 1</ambient></material></visual></link></model>
+    <model name="shelf_C2"><static>true</static><pose>28.0 12.0 1.0 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>6.0 1.2 2.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>6.0 1.2 2.0</size></box></geometry><material><ambient>0.3 0.5 0.8 1</ambient></material></visual></link></model>
+
+    <!-- YCB Objects -->
+    <model name="ycb_sugar_box"><static>true</static><pose>6.5 6.4 2.05 0 0 0</pose>
+      <link name="link">
+        <inertial><mass>0.514</mass><inertia><ixx>0.000415</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.000178</iyy><iyz>0</iyz><izz>0.000275</izz></inertia></inertial>
+        <collision name="c"><geometry><box><size>0.038 0.067 0.175</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.038 0.067 0.175</size></box></geometry><material><ambient>0.9 0.7 0.1 1</ambient></material></visual>
+      </link></model>
+    <model name="ycb_cup_fragile"><static>true</static><pose>9.5 6.4 2.05 0 0 0</pose>
+      <link name="link">
+        <inertial><mass>0.098</mass><inertia><ixx>0.000067</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.000067</iyy><iyz>0</iyz><izz>0.000069</izz></inertia></inertial>
+        <collision name="c"><geometry><box><size>0.071 0.071 0.083</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.071 0.071 0.083</size></box></geometry><material><ambient>0.2 0.6 0.9 1</ambient></material></visual>
+      </link></model>
+
+    <!-- Picking stations -->
+    <model name="station_A"><static>true</static><pose>2.0 30.0 0.5 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>1.5 1.5 1.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>1.5 1.5 1.0</size></box></geometry><material><ambient>0.2 0.8 0.2 1</ambient></material></visual></link></model>
+    <model name="station_B"><static>true</static><pose>34.0 30.0 0.5 0 0 0</pose>
+      <link name="link"><collision name="c"><geometry><box><size>1.5 1.5 1.0</size></box></geometry></collision>
+      <visual name="v"><geometry><box><size>1.5 1.5 1.0</size></box></geometry><material><ambient>0.2 0.8 0.2 1</ambient></material></visual></link></model>
+
+    <!-- AMR_1 — PPO agent (blue) with namespaced topics -->
+    <model name="amr_1">
+      <pose>2.0 2.0 0.1 0 0 0</pose>
+      <link name="base_link">
+        <inertial><mass>1.3729</mass><inertia>
+          <ixx>0.00508</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.00508</iyy><iyz>0</iyz><izz>0.00986</izz>
+        </inertia></inertial>
+        <collision name="base_collision">
+          <pose>0 0 0.05 0 0 0</pose>
+          <geometry><cylinder><radius>0.105</radius><length>0.09</length></cylinder></geometry>
+          <surface><friction><ode><mu>0.05</mu><mu2>0.05</mu2></ode></friction></surface>
+        </collision>
+        <visual name="base_visual">
+          <geometry><cylinder><radius>0.105</radius><length>0.143</length></cylinder></geometry>
+          <material><ambient>0.1 0.4 0.9 1</ambient><diffuse>0.1 0.4 0.9 1</diffuse></material>
+        </visual>
+        <sensor name="lidar" type="gpu_lidar">
+          <pose>0 0 0.12 0 0 0</pose>
+          <topic>/amr_1/scan</topic>
+          <update_rate>20</update_rate>
+          <always_on>1</always_on>
+          <visualize>false</visualize>
+          <lidar>
+            <scan><horizontal>
+              <samples>360</samples><resolution>1</resolution>
+              <min_angle>-3.14159</min_angle><max_angle>3.14159</max_angle>
+            </horizontal></scan>
+            <range><min>0.12</min><max>12.0</max><resolution>0.015</resolution></range>
+            <noise><type>gaussian</type><mean>0.0</mean><stddev>0.01</stddev></noise>
+          </lidar>
+        </sensor>
+      </link>
+      <link name="wheel_left_link">
+        <pose>0.0 0.08 0.033 -1.5707963 0 0</pose>
+        <inertial><mass>0.05</mass><inertia><ixx>1.5e-5</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1.5e-5</iyy><iyz>0</iyz><izz>2.7e-5</izz></inertia></inertial>
+        <collision name="c"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry>
+          <surface>
+            <friction><ode><mu>1.2</mu><mu2>1.2</mu2>
+              <fdir1>0 0 1</fdir1><slip1>0.0</slip1><slip2>0.0</slip2>
+            </ode></friction>
+            <contact><ode><kp>1e6</kp><kd>100</kd></ode></contact>
+          </surface>
+        </collision>
+        <visual name="v"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry><material><ambient>0.1 0.1 0.1 1</ambient></material></visual>
+      </link>
+      <link name="wheel_right_link">
+        <pose>0.0 -0.08 0.033 -1.5707963 0 0</pose>
+        <inertial><mass>0.05</mass><inertia><ixx>1.5e-5</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1.5e-5</iyy><iyz>0</iyz><izz>2.7e-5</izz></inertia></inertial>
+        <collision name="c"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry>
+          <surface>
+            <friction><ode><mu>1.2</mu><mu2>1.2</mu2>
+              <fdir1>0 0 1</fdir1><slip1>0.0</slip1><slip2>0.0</slip2>
+            </ode></friction>
+            <contact><ode><kp>1e6</kp><kd>100</kd></ode></contact>
+          </surface>
+        </collision>
+        <visual name="v"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry><material><ambient>0.1 0.1 0.1 1</ambient></material></visual>
+      </link>
+      <joint name="wheel_left_joint" type="revolute">
+        <parent>base_link</parent><child>wheel_left_link</child>
+        <axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      </joint>
+      <joint name="wheel_right_joint" type="revolute">
+        <parent>base_link</parent><child>wheel_right_link</child>
+        <axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      </joint>
+      <plugin filename="gz-sim-diff-drive-system"
+              name="gz::sim::systems::DiffDrive">
+        <left_joint>wheel_left_joint</left_joint>
+        <right_joint>wheel_right_joint</right_joint>
+        <wheel_separation>0.16</wheel_separation>
+        <wheel_radius>0.033</wheel_radius>
+        <odom_publish_frequency>20</odom_publish_frequency>
+        <topic>/amr_1/cmd_vel</topic>
+        <odom_topic>/amr_1/odom</odom_topic>
+        <tf_topic>/amr_1/tf</tf_topic>
+        <frame_id>amr_1/odom</frame_id>
+        <child_frame_id>amr_1/base_link</child_frame_id>
+      </plugin>
+    </model>
+
+    <!-- AMR_2 — Nav2 DWB baseline (orange) with namespaced topics -->
+    <model name="amr_2">
+      <pose>4.0 2.0 0.1 0 0 0</pose>
+      <link name="base_link">
+        <inertial><mass>1.3729</mass><inertia>
+          <ixx>0.00508</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.00508</iyy><iyz>0</iyz><izz>0.00986</izz>
+        </inertia></inertial>
+        <collision name="base_collision">
+          <pose>0 0 0.05 0 0 0</pose>
+          <geometry><cylinder><radius>0.105</radius><length>0.09</length></cylinder></geometry>
+          <surface><friction><ode><mu>0.05</mu><mu2>0.05</mu2></ode></friction></surface>
+        </collision>
+        <visual name="base_visual">
+          <geometry><cylinder><radius>0.105</radius><length>0.143</length></cylinder></geometry>
+          <material><ambient>0.9 0.4 0.1 1</ambient><diffuse>0.9 0.4 0.1 1</diffuse></material>
+        </visual>
+        <sensor name="lidar" type="gpu_lidar">
+          <pose>0 0 0.12 0 0 0</pose>
+          <topic>/amr_2/scan</topic>
+          <update_rate>20</update_rate>
+          <always_on>1</always_on>
+          <visualize>false</visualize>
+          <lidar>
+            <scan><horizontal>
+              <samples>360</samples><resolution>1</resolution>
+              <min_angle>-3.14159</min_angle><max_angle>3.14159</max_angle>
+            </horizontal></scan>
+            <range><min>0.12</min><max>12.0</max><resolution>0.015</resolution></range>
+            <noise><type>gaussian</type><mean>0.0</mean><stddev>0.01</stddev></noise>
+          </lidar>
+        </sensor>
+      </link>
+      <link name="wheel_left_link">
+        <pose>0.0 0.08 0.033 -1.5707963 0 0</pose>
+        <inertial><mass>0.05</mass><inertia><ixx>1.5e-5</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1.5e-5</iyy><iyz>0</iyz><izz>2.7e-5</izz></inertia></inertial>
+        <collision name="c"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry>
+          <surface>
+            <friction><ode><mu>1.2</mu><mu2>1.2</mu2>
+              <fdir1>0 0 1</fdir1><slip1>0.0</slip1><slip2>0.0</slip2>
+            </ode></friction>
+            <contact><ode><kp>1e6</kp><kd>100</kd></ode></contact>
+          </surface>
+        </collision>
+        <visual name="v"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry><material><ambient>0.1 0.1 0.1 1</ambient></material></visual>
+      </link>
+      <link name="wheel_right_link">
+        <pose>0.0 -0.08 0.033 -1.5707963 0 0</pose>
+        <inertial><mass>0.05</mass><inertia><ixx>1.5e-5</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1.5e-5</iyy><iyz>0</iyz><izz>2.7e-5</izz></inertia></inertial>
+        <collision name="c"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry>
+          <surface>
+            <friction><ode><mu>1.2</mu><mu2>1.2</mu2>
+              <fdir1>0 0 1</fdir1><slip1>0.0</slip1><slip2>0.0</slip2>
+            </ode></friction>
+            <contact><ode><kp>1e6</kp><kd>100</kd></ode></contact>
+          </surface>
+        </collision>
+        <visual name="v"><geometry><cylinder><radius>0.033</radius><length>0.018</length></cylinder></geometry><material><ambient>0.1 0.1 0.1 1</ambient></material></visual>
+      </link>
+      <joint name="wheel_left_joint" type="revolute">
+        <parent>base_link</parent><child>wheel_left_link</child>
+        <axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      </joint>
+      <joint name="wheel_right_joint" type="revolute">
+        <parent>base_link</parent><child>wheel_right_link</child>
+        <axis><xyz>0 0 1</xyz><limit><lower>-1e16</lower><upper>1e16</upper></limit></axis>
+      </joint>
+      <plugin filename="gz-sim-diff-drive-system"
+              name="gz::sim::systems::DiffDrive">
+        <left_joint>wheel_left_joint</left_joint>
+        <right_joint>wheel_right_joint</right_joint>
+        <wheel_separation>0.16</wheel_separation>
+        <wheel_radius>0.033</wheel_radius>
+        <odom_publish_frequency>20</odom_publish_frequency>
+        <topic>/amr_2/cmd_vel</topic>
+        <odom_topic>/amr_2/odom</odom_topic>
+        <tf_topic>/amr_2/tf</tf_topic>
+        <frame_id>amr_2/odom</frame_id>
+        <child_frame_id>amr_2/base_link</child_frame_id>
+      </plugin>
+    </model>
+
+  </world>
+</sdf>

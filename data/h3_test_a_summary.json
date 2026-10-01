@@ -1,0 +1,11 @@
+{
+  "test": "A_safety",
+  "max_steps": 400,
+  "guided_violation_rate": 0.997166,
+  "unguided_violation_rate": 0.998836,
+  "relative_reduction_pct": 0.17,
+  "p_value": 0.00010768985334214344,
+  "effect_r": 0.0543,
+  "n_per_system": 400,
+  "criterion_met": true
+}

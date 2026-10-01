@@ -1,0 +1,6 @@
+#!/bin/bash
+shift 3   # drop: run ros_gz_bridge parameter_bridge
+i=0; for a in "$@"; do i=$((i+1))
+  if [[ "${FAKE_BRIDGE_FAIL:-0}" == 1 && $i -eq $# ]]; then echo "[WARN] Failed to create a bridge for topic [$a]"; 
+  else echo "[INFO] [ros_gz_bridge]: Creating GZ->ROS Bridge: [$a]"; fi; done
+exec -a "/opt/ros/jazzy/lib/ros_gz_bridge/parameter_bridge $*" sleep 100000

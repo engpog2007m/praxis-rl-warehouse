@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite it as below."
+title: "Reinforcement Learning and Comparative Machine Learning for Adaptive Mobile Robot Control in E-commerce Warehouses"
+type: software
+authors:
+  - family-names: Gumbo
+    given-names: Patriot
+    affiliation: "The George Washington University, School of Engineering and Applied Science"
+date-released: 2026-09-26
+license: MIT
+keywords:
+  - reinforcement learning
+  - autonomous mobile robots
+  - warehouse logistics
+  - Gazebo
+  - ROS 2

@@ -1,0 +1,12 @@
+{
+  "test": "H3_roadmap",
+  "followed_completion": 0.91,
+  "skipped_completion": 0.912,
+  "relative_advantage_pct": -0.22,
+  "completion_p": 0.5624159995560881,
+  "completion_r": 0.002,
+  "reward_p": 0.7359237543645625,
+  "reward_r": 0.0163,
+  "n_per_system": 1000,
+  "criterion_met": false
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="004_sugar_box">
+    <static>false</static>
+    <link name="link">
+      <inertial><mass>0.514</mass><inertia>
+        <ixx>0.001504</ixx><ixy>0</ixy><ixz>0</ixz>
+        <iyy>0.001374</iyy><iyz>0</iyz><izz>0.000254</izz>
+      </inertia></inertial>
+      <collision name="c"><geometry><box><size>0.038 0.067 0.175</size></box></geometry>
+        <surface><friction><ode><mu>0.8</mu><mu2>0.8</mu2></ode></friction></surface>
+      </collision>
+      <visual name="v"><geometry><box><size>0.038 0.067 0.175</size></box></geometry></visual>
+    </link>
+  </model>
+</sdf>

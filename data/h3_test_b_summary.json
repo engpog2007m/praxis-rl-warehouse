@@ -1,0 +1,14 @@
+{
+  "test": "B_ood",
+  "noise_levels": [
+    0.5,
+    0.6
+  ],
+  "guided_completion": 0.92,
+  "unguided_completion": 0.946,
+  "relative_advantage_pct": -2.75,
+  "p_value": 0.9498778281296254,
+  "effect_r": 0.026,
+  "n_per_system": 500,
+  "criterion_met": false
+}

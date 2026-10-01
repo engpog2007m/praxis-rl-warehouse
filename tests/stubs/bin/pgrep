@@ -1,0 +1,2 @@
+#!/bin/bash
+n=${FAKE_GZ_COUNT:-1}; for i in $(seq 1 $n); do echo "10$i gz sim -r -s -v 1 /x/praxis_multiagent_lidar.sdf"; done
