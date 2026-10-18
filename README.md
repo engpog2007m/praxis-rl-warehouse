@@ -167,6 +167,5 @@ in `train_gazebo_ppo.py` back to `v4`. Review every `WARN` line it prints.
 
 ## Citation, attribution and licence
 
-See [CITATION.cff](CITATION.cff). AI assistance in developing this code is disclosed in
-[AI_ATTRIBUTION.md](AI_ATTRIBUTION.md), as required by GWU policy. Licensed under the
+See [CITATION.cff](CITATION.cff). Licensed under the
 terms in [LICENSE](LICENSE).
