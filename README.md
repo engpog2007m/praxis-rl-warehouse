@@ -3,73 +3,110 @@
 Code, trained models, and result data for the doctoral praxis of Patriot Gumbo,
 The George Washington University, School of Engineering and Applied Science (2026).
 
-The work compares a Proximal Policy Optimization (PPO) controller with payload-adaptive
-reward shaping against an unguided PPO ablation, a behavioural-cloning policy trained on
-classical-planner demonstrations, and the Nav2 DWB classical planner, for autonomous
-mobile robots (AMRs) in a simulated e-commerce warehouse built on Gazebo Harmonic and
-ROS 2 Jazzy.
+The core experiment compares an unguided Proximal Policy Optimization (PPO) policy with
+two baselines: a behavioural-cloning policy (traditional machine learning) trained on
+demonstrations from a classical controller, and that classical controller itself, a DWB
+reference controller. All three control an autonomous mobile robot (AMR) in a simulated
+e-commerce warehouse built on Gazebo Harmonic and ROS 2 Jazzy. As additional
+experimentation, a guided PPO variant with payload-adaptive reward shaping was evaluated
+against unguided PPO (Deployment Roadmap hypothesis, H3; praxis Appendix B).
+
+All results are from simulation. Nothing in this repository was run on a physical robot.
+
+**About the baseline name.** The "DWB reference controller" is a Python controller modelled
+on the Nav2 Dynamic Window Approach (DWB) local planner. It is not the full Nav2 navigation
+stack. Some file and column names still use the label `Nav2_DWB`; they refer to the same
+controller. See [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
 
 ---
 
-## Read this first: two evaluation eras
+## Read this first: development stages
 
-Results come from two environment generations. Both are included, and they are not
-interchangeable.
+The work went through three stages. All are included; only the final stage supports the
+hypothesis results.
 
-| | Era 1 | Era 2 |
-|---|---|---|
-| Observation | 7-dim pose/goal/velocity | 31-dim: 7 pose terms + 24 LiDAR sectors |
-| Obstacles | none | dynamic peer robot on the ego route |
-| Robot physics | **defective** (see below) | corrected and verified |
-| Position source | odometry | Gazebo ground-truth pose |
-| Supports | H1, H2, Era 1 RQ1 | H3, final RQ1 |
+| | Python layer | Stage 2 (Era 1, Gazebo) | Final stage (Era 2, Gazebo) |
+|---|---|---|---|
+| Simulator | kinematic, no physics | Gazebo Harmonic | Gazebo Harmonic, physics corrected |
+| Observation | pose/goal/velocity | 7-dim pose/goal/velocity | 31-dim: 7 pose terms + 24 LiDAR sectors |
+| Obstacles | none | none | dynamic peer robot on the ego route |
+| Position source | simulated | odometry | Gazebo ground-truth pose |
+| Robot physics | n/a | **defective** (see below) | corrected and verified |
+| Used for | prototype, reward design | record of the defect | H1, H2, H3, RQ1-RQ3 |
 
 **The Era 1 physics defect.** The original AMR models had no wheel friction and a chassis
 collision cylinder resting on the ground plane. Under full commanded velocity the robot
 moved about 0.5 mm in 3 s, while odometry, which integrates commanded velocity rather than
-measuring displacement, reported normal travel. All Era 1 systems ran under the same defect,
-so Era 1 comparisons between systems remain internally consistent, but they are not
-physically validated. The correction and its consequences are documented in
-[docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md), issue 1. `tools/preflight_check.py` now
-refuses to start any run on a robot that does not physically move.
+measuring displacement, reported normal travel. Era 1 comparisons between systems are
+internally consistent but not physically validated, so no hypothesis verdict rests on them.
+The correction is documented in [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md), issue 1.
+`tools/preflight_check.py` now refuses to start any run on a robot that does not physically move.
 
 ---
 
-## Results
+## Results (final stage, n = 800 episodes per system)
 
-The Era 2 and H1 numbers below are recomputed from the episode records in `data/` by
-`./run_all.sh stats`, which reports OK or DIFF against each value. The H2 figures are
-quoted from the praxis and are not re-derived by that script.
-
-### Era 2: four systems, active peer obstacle (n = 800 episodes per system)
+### Core experiment
 
 | System | Completed | Collided | Timed out |
 |---|---|---|---|
-| PPO, guided | 29.5% | **18.2%** | 52.3% |
-| PPO, unguided | **56.3%** | 37.4% | 6.4% |
+| PPO, unguided | **56.2%** | 37.4% | 6.4% |
 | Behavioural cloning | 49.4% | 39.9% | 10.8% |
-| Nav2 DWB | 45.4% | 41.1% | 13.5% |
+| DWB reference controller | 45.4% | 41.1% | 13.5% |
 
-- **H3, partially supported.** Guidance roughly halves the collision rate
-  (18.2% vs 37.4%, Mann-Whitney one-sided p < 0.0001, r = 0.191) but also reduces task
-  completion (29.5% vs 56.3%, two-sided p < 0.0001). The safety claim holds; the
-  effectiveness claim does not.
-- **RQ1.** Behavioural cloning is statistically indistinguishable from the planner it
-  imitates (completion p = 0.109, collision p = 0.611). Unguided PPO exceeds Nav2 DWB on
-  completion (p < 0.0001) with no significant difference in collision rate (p = 0.125).
+Throughput is completed tasks per 1,000 control steps, for a single controlled AMR
+(controller level, not fleet level): unguided PPO 4.315, behavioural cloning 3.471,
+DWB reference controller 3.226.
 
-### Era 1: H1, robustness under sensor noise (pre-correction physics)
+Hypotheses H1 and H2 were refined after advisor review; the praxis states the original and
+revised wording. A hypothesis is supported when the difference is statistically significant
+and the estimated improvement meets the target.
 
-Pooled at sensor noise sigma >= 0.15, PPO completed 58.2% of episodes against 51.0% for
-Nav2 DWB: a 14.1% relative advantage, Mann-Whitney one-sided p = 0.011, bootstrap 95% CI
-[2.3%, 27.8%]. The point estimate exceeds the hypothesised 10%; the lower confidence bound
-does not.
+- **H1 (completion +10% vs traditional ML), supported.** Unguided PPO vs behavioural
+  cloning: +13.9% relative completion, bootstrap 95% CI [4.5%, 24.7%], p = 0.006. The
+  point estimate meets the target; the lower bound of the interval does not. Under sensor
+  noise sigma >= 0.15, unguided PPO completed 53.25% of episodes against 40.25% for the
+  DWB reference controller (+32.3%, 95% CI [15.0%, 55.7%], one-sided p = 0.0001).
+- **H2 (throughput +10% vs controller-level baselines), supported at controller level.**
+  Unguided PPO vs DWB reference controller: +33.7% [23.4%, 45.8%]. Vs behavioural cloning:
+  +24.3% [15.5%, 34.3%]. Both intervals lie above 10%.
+- **RQ1.** Unguided PPO completed significantly more tasks than both baselines, with no
+  significant difference in collision rate (vs DWB p = 0.125; vs behavioural cloning
+  p = 0.30). Behavioural cloning did not differ significantly from the controller it
+  imitates (completion p = 0.109, collision p = 0.611).
 
-### Era 1: H2, throughput (pre-correction physics)
+### Additional experimentation: guided PPO (H3, praxis Appendix B)
 
-Controller-level throughput improved 7.7% relative to Nav2 DWB (49.1% vs 45.6%). A
-fleet-level discrete-event simulation did not converge (seed-to-seed coefficient of
-variation 0.45 to 0.54) and is not reported as a result.
+| System | Completed | Collided | Timed out |
+|---|---|---|---|
+| PPO, guided | 29.5% | 18.2% | 52.2% |
+| PPO, unguided | 56.2% | 37.4% | 6.4% |
+
+- **H3, partially supported.** Across all episodes, guided PPO collided less (18.2% vs
+  37.4%, p < 0.0001) but completed fewer tasks (29.5% vs 56.2%). The guided policy timed
+  out on every episode in one of the two goal directions. In the direction it attempted,
+  it did not differ from unguided PPO in collision (36.5% vs 35.5%, p = 0.77) or completion
+  (59.0% vs 58.8%, p = 0.94). The aggregate collision reduction therefore reflects the
+  direction failure, not safer driving; stratified evaluation, one of the roadmap checks,
+  is what exposed this.
+
+### Where each number comes from
+
+| Output | Produced by |
+|---|---|
+| Outcome rates, noise, payload, mass, direction and pairwise tables (`results/tables/era2_*.csv`) | `python3 analysis/era2_analysis.py` |
+| Unguided PPO vs behavioural cloning intervals (H1, H2) | `python3 analysis/bc_ci.py` |
+| Statistics checked OK/DIFF against reported values | `./run_all.sh stats` |
+
+### Figures
+
+| Praxis figure | File | Script |
+|---|---|---|
+| 4.5 Training curves, unguided PPO | `results/figures/fig4_5_training_unguided.png` | `analysis/make_core_figures.py` |
+| 4.6 Outcome rates, core systems | `results/figures/fig4_6_outcomes_core.png` | `analysis/make_core_figures.py` |
+| 4.7 Completion by sensor noise | `results/figures/fig4_7_completion_noise_core.png` | `analysis/make_core_figures.py` |
+| 4.8 Throughput | `results/figures/fig4_8_throughput_core.png` | `analysis/make_core_figures.py` |
+| Appendix B, four-system versions and goal direction | `results/figures/fig4_5_training.png` to `fig4_9_direction.png` | `analysis/make_era2_figures.py` |
 
 ---
 
@@ -131,8 +168,9 @@ worlds/                    Gazebo SDF worlds (physics state: tools/world_physics
 assets/                    dataset-derived maps, noise parameters, YCB models
 models/                    trained policies; models/reference/ holds read-only copies
 data/                      episode-level result records
-results/                   chapter figures
-analysis/                  reproduce_statistics.py
+results/                   chapter figures (results/figures) and tables (results/tables)
+analysis/                  reproduce_statistics.py, era2_analysis.py, bc_ci.py,
+                           make_core_figures.py, make_era2_figures.py
 tools/                     simulator control, preflight check, world physics, collector
 tests/                     self-tests, stubs and fixtures
 docs/                      PIPELINE.md, KNOWN_ISSUES.md, PROVENANCE.md
@@ -165,7 +203,23 @@ in `train_gazebo_ppo.py` back to `v4`. Review every `WARN` line it prints.
 
 ---
 
-## Citation, attribution and licence
+## Use of AI tools
 
-See [CITATION.cff](CITATION.cff). Licensed under the
-terms in [LICENSE](LICENSE).
+This repository was developed by Patriot Gumbo. An AI assistant (Anthropic's Claude) was
+used during development for:
+
+- drafting and debugging Python, Bash and ROS 2 / Gazebo code
+- writing the statistical analysis and figure-generation scripts in `analysis/`
+- setting up the reproducibility tooling (`run_all.sh`, self-tests, environment scripts)
+- checking reference details (DOIs, volumes, pages)
+
+All simulations, training runs and evaluations were run by the author on his own hardware,
+and every reported number is produced by running the code in this repository on the
+shipped data. The author reviewed, tested and is responsible for all code and results.
+The praxis document itself is not part of this repository.
+
+---
+
+## Citation and licence
+
+See [CITATION.cff](CITATION.cff). Licensed under the terms in [LICENSE](LICENSE).
