@@ -112,3 +112,13 @@ unseeded random offsets. Expect the same direction and significance, not identic
 Data files over 25 MB, notably the DWB demonstration sets, are excluded and regenerated
 by the pipeline. The fleet-level discrete-event simulator did not converge and is not
 included as a result-producing component.
+
+## 13. "Nav2 DWB" in file and column names
+
+Files, columns and model names label the classical baseline `Nav2_DWB` or "Nav2 DWB".
+That baseline is a Python reference controller modelled on the Nav2 Dynamic Window
+Approach (DWB) local planner: it samples velocity commands and scores short trajectories
+against the goal, without the full Nav2 stack (no global planner, costmaps or behaviour
+tree). The praxis and the README call it the "DWB reference controller". The labels were
+kept so that the shipped records and scripts still match. Comparing the learned policies
+with the full Nav2 stack is listed as future work.

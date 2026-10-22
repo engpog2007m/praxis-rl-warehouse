@@ -120,7 +120,68 @@ def era2_four_way(R):
     R.check('H3 completion p (two-sided)', pc, None, below=1e-4)
     R.check('H3 collision p (one-sided, guided < unguided)', pcol, None, below=1e-4)
     R.check('H3 collision effect size r', rcol, 0.191, 5e-4)
-    R.note('Verdict: safety component supported; effectiveness component not supported.')
+    R.note('Aggregate only. See the goal-direction checks below before reading this as a safety gain.')
+
+
+def era2_core_and_direction(R):
+    R.section('Era 2 — core experiment vs behavioural cloning, and H3 by goal direction '
+              '(four_way_lidar_results.csv)')
+    df = load('four_way_lidar_results.csv')
+    if df is None:
+        return R.skip_file('four_way_lidar_results.csv')
+    need = {'cycle_time', 'episode'}
+    if not need.issubset(df.columns):
+        R.skip += 1
+        print(f'  SKIP  columns {sorted(need - set(df.columns))} not in four_way_lidar_results.csv')
+        return
+
+    # Same procedure and random stream as analysis/bc_ci.py (seed 42, 2,000 resamples,
+    # completion first, throughput second), so the intervals match exactly.
+    df = df.copy()
+    df['completed'] = as_float(df['completed'])
+    rng = np.random.default_rng(42)
+    B = 2000
+    U = df[df.system == 'PPO_unguided'].reset_index(drop=True)
+    C = df[df.system == 'BC_ml'].reset_index(drop=True)
+
+    def rel(a, b, f):
+        pt = 100 * (f(a) - f(b)) / f(b)
+        bs = []
+        for _ in range(B):
+            x = a.iloc[rng.integers(0, len(a), len(a))]
+            y = b.iloc[rng.integers(0, len(b), len(b))]
+            bs.append(100 * (f(x) - f(y)) / f(y))
+        return pt, np.percentile(bs, 2.5), np.percentile(bs, 97.5)
+
+    comp = lambda g: g.completed.mean()
+    tput = lambda g: 1000 * g.completed.sum() / g.cycle_time.sum()
+    print('\n  Unguided PPO vs behavioural cloning (bootstrap 95% CI)')
+    for name, f, (pt_r, lo_r, hi_r) in (('H1 completion', comp, (13.9, 4.5, 24.7)),
+                                        ('H2 throughput', tput, (24.3, 15.5, 34.3))):
+        pt, lo, hi = rel(U, C, f)
+        R.check(f'{name} vs BC, relative (%)', pt, pt_r, 0.05)
+        R.check(f'{name} vs BC, CI lower (%)', lo, lo_r, 0.05)
+        R.check(f'{name} vs BC, CI upper (%)', hi, hi_r, 0.05)
+
+    print('\n  H3 — guided vs unguided in the direction the guided policy attempted')
+    df['direction'] = df['episode'] % 2
+    g_all = df[df.system == 'PPO_guided']
+    attempted = max((0, 1), key=lambda d: g_all[g_all.direction == d]['completed'].mean())
+    g = g_all[g_all.direction == attempted]
+    u = df[(df.system == 'PPO_unguided') & (df.direction == attempted)]
+    other = g_all[g_all.direction != attempted]
+    R.check('H3 guided timeout rate, other direction', as_float(other['timed_out']).mean(), 1.0, 5e-4)
+    R.check('H3 attempted dir: guided completion', g['completed'].mean(), 0.590, 5e-4)
+    R.check('H3 attempted dir: unguided completion', u['completed'].mean(), 0.588, 5e-4)
+    R.check('H3 attempted dir: guided collision', as_float(g['collided']).mean(), 0.365, 5e-4)
+    R.check('H3 attempted dir: unguided collision', as_float(u['collided']).mean(), 0.355, 5e-4)
+    pc, _ = mwu(g['completed'], u['completed'], 'two-sided')
+    pcol, rcol = mwu(as_float(g['collided']), as_float(u['collided']), 'two-sided')
+    R.check('H3 attempted dir: completion p', pc, 0.94, 5e-3)
+    R.check('H3 attempted dir: collision p', pcol, 0.77, 5e-3)
+    R.check('H3 attempted dir: collision effect size r', rcol, -0.010, 5e-4)
+    R.note('Verdict: H3 partially supported. The aggregate collision reduction comes from '
+           'the guided policy timing out in one direction, not from safer driving.')
 
 
 # ------------------------------------------------------------------ Era 1
@@ -244,6 +305,7 @@ def main():
     print(f'Data directory: {DATA}')
     R = Report()
     era2_four_way(R)
+    era2_core_and_direction(R)
     era1_physics_and_h1(R)
     era1_four_way(R)
     era1_h3_appendix(R)
