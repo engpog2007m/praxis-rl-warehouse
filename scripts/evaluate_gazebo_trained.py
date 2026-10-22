@@ -5,7 +5,7 @@ from scipy import stats
 from stable_baselines3 import PPO
 from simulation.gazebo_env import GazeboWarehouseEnv
 
-TASK_IDS  = [4, 1001]
+TASK_IDS  = [1, 2, 3, 4, 1001]
 NOISE     = [0.00, 0.05, 0.15, 0.30]
 MASSES    = [1.0, 2.0]
 EPISODES  = 25

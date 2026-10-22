@@ -1,0 +1,5 @@
+,completed,completed,completed,completed,collided,collided,collided,collided
+system,BC_ml,Nav2_DWB,PPO_guided,PPO_unguided,BC_ml,Nav2_DWB,PPO_guided,PPO_unguided
+mass_multiplier,,,,,,,,
+1.0,60.8,52.5,31.8,61.8,38.2,44.8,18.2,38.2
+2.0,38.0,38.2,27.3,50.7,41.5,37.5,18.2,36.5

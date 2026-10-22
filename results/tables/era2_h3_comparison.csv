@@ -1,0 +1,3 @@
+,n_each,guided_completed_%,unguided_completed_%,completion_p,guided_collided_%,unguided_collided_%,collision_p,collision_r
+all episodes,800.0,29.5,56.2,3.193487139996238e-27,18.2,37.4,1.4164990819307654e-17,0.191
+attempted direction (1) only,400.0,59.0,58.8,0.9428986040748415,36.5,35.5,0.7685595425416218,-0.01

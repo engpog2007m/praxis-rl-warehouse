@@ -1,0 +1,8 @@
+,completed,completed,completed,completed,collided,collided,collided,collided
+system,BC_ml,Nav2_DWB,PPO_guided,PPO_unguided,BC_ml,Nav2_DWB,PPO_guided,PPO_unguided
+task_id,,,,,,,,
+1,61.3,60.0,31.2,64.4,36.9,38.8,18.8,35.6
+2,64.4,58.1,27.5,52.5,33.8,38.8,22.5,47.5
+3,32.5,30.0,27.5,45.6,44.4,36.9,16.9,34.4
+4,53.1,53.1,35.0,66.2,46.9,46.2,15.0,33.8
+1001,35.6,25.6,26.2,52.5,37.5,45.0,18.1,35.6

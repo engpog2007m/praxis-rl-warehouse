@@ -1,0 +1,4 @@
+,completion_diff_pp,completion_p,completion_r,collision_diff_pp,collision_p,collision_r
+PPO_guided vs Nav2_DWB,-15.9,5.441389599971764e-11,0.159,-22.9,1.372651979965588e-23,0.229
+PPO_unguided vs Nav2_DWB,10.9,1.3666484551662348e-05,-0.109,-3.7,0.1246917657865238,0.037
+BC_ml vs Nav2_DWB,4.0,0.10923386100011201,-0.04,-1.3,0.6107142833058299,0.012

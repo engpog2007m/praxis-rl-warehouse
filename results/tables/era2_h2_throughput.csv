@@ -1,0 +1,5 @@
+,tasks_per_1000_steps,vs_DWB_%,boot_95CI_low_%,boot_95CI_high_%,completed_cycle_time_median,completed_cycle_time_mean,cycle_time_p_vs_DWB
+PPO_guided,1.784,-44.7,-51.87,-37.05,153.0,153.8,9.079125261252345e-35
+PPO_unguided,4.315,33.74,23.38,45.78,153.0,154.2,1.6064879259274693e-47
+BC_ml,3.471,7.59,-1.55,18.72,172.0,171.7,0.23654104311963642
+Nav2_DWB,3.226,0.0,,,171.0,170.8,
