@@ -208,10 +208,7 @@ in `train_gazebo_ppo.py` back to `v4`. Review every `WARN` line it prints.
 This repository was developed by Patriot Gumbo. An AI assistant (Anthropic's Claude) was
 used during development for:
 
-- drafting and debugging Python, Bash and ROS 2 / Gazebo code
-- writing the statistical analysis and figure-generation scripts in `analysis/`
-- setting up the reproducibility tooling (`run_all.sh`, self-tests, environment scripts)
-- checking reference details (DOIs, volumes, pages)
+- debugging Python, Bash and ROS 2 / Gazebo code
 
 All simulations, training runs and evaluations were run by the author on his own hardware,
 and every reported number is produced by running the code in this repository on the
